@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>This is index 2</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/html2pdf.bundle.js"></script>
+</head>
+<body>
+	<h1>This is HTML 2 need to generate pdf</h1>
+	<div id="pdfGen">
+		<input type="text" name="test" id="test">
+		<p style="color: red;">I Love Coding</p>
+		<div id="bind"></div>
+	</div>
+	<button id="generatePdf">Generate pdf</button>
+	<script type="text/javascript">
+		$(document).ready(()=>{
+			$("input").on("input", function(){
+			    $("#bind").append("<h1>"+$(this).val()+"</h1>")
+			});
+			 $(document).on('click',"#generatePdf",function(event){
+                // Final file name
+				let fileName = "evaluation_xxx.pdf";
+				const element = document.getElementById('pdfGen');
+				// Assuming "pages" is an array of HTML elements or strings that are separate pages:
+				
+
+				// // Generate the PDF.
+				// let worker = html2pdf().from(element).set({
+				//     margin: 0,
+				//     filename: fileName,
+				//     html2canvas: { scale: 2 },
+				//     jsPDF: { orientation: 'portrait', unit: 'pt', format: 'a4', compressPDF: true}
+				// })
+
+				// worker.output('C:/Users/Tatai/Downloads/'+fileName, 'F');
+
+
+				html2pdf().from(element).set({
+				    margin: 0,
+				    filename: fileName,
+				    html2canvas: { scale: 2 },
+				    jsPDF: { orientation: 'portrait', unit: 'pt', format: 'a4', compressPDF: true}
+				}).toPdf().output('datauristring').then(function (pdfAsString) {
+					    // The PDF has been converted to a Data URI string and passed to this function.
+					    // Use pdfAsString however you like (send as email, etc)! For instance:
+					    const preBlob = dataURItoBlob(pdfAsString);
+					    // const file = new File([preBlob], fileName, {type: 'application/pdf'}); 
+					  	// const url = URL.createObjectURL(preBlob);
+					   //  console.log(file)
+					   //  window.open(url, '_blank');
+					    // window.open("data:application/pdf;base64," + Base64.encode(pdfAsString));
+					    // console.log(preBlob)
+
+					    var obj = document.createElement('object');
+							obj.style.width = '100%';
+							obj.style.height = '842pt';
+							obj.type = 'application/pdf';
+							obj.data = pdfAsString;
+							document.body.appendChild(obj);
+
+							var link = document.createElement('a');
+							link.innerHTML = 'Download PDF file';
+							link.download = 'file.pdf';
+							link.href = pdfAsString;
+							document.body.appendChild(link);
+					});
+            })
+
+			 function dataURItoBlob(dataURI) {
+			    // convert base64/URLEncoded data component to raw binary data held in a string
+			    var byteString;
+			    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+			        byteString = atob(dataURI.split(',')[1]);
+			    else
+			        byteString = unescape(dataURI.split(',')[1]);
+
+			    // separate out the mime component
+			    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+			    // write the bytes of the string to a typed array
+			    var ia = new Uint8Array(byteString.length);
+			    for (var i = 0; i < byteString.length; i++) {
+			        ia[i] = byteString.charCodeAt(i);
+			    }
+
+			    return new Blob([ia], {type:mimeString});
+			}
+		})
+	</script>
+</body>
+</html>

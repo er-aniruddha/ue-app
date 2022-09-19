@@ -4400,7 +4400,8 @@ a.text-dark {
 .table td, .table th {
     border-top: 1px solid #E1E1E1;
     text-transform: capitalize;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     page-break-inside:avoid;
 }
 

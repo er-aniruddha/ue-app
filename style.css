@@ -4381,7 +4381,9 @@ a.text-dark {
     line-height: 1.4em;
     page-break-inside:avoid;
 }
-
+.table td:first-child{
+    text-align: left;
+}
 .table tr {
     border-color: #E1E1E1;
     page-break-before:avoid;
@@ -4402,7 +4404,9 @@ a.text-dark {
     text-transform: capitalize;
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-right: 5px;
     page-break-inside:avoid;
+    text-align: right;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd) {
@@ -7510,7 +7514,8 @@ textarea,
 
 .invoice .invoice-detail .table thead td,
 .invoice .invoice-detail .table tbody td {
-    text-align: center
+    padding-right: 5px;
+    text-align: right
 }
 
 .invoice .invoice-detail .table thead td:first-child,
@@ -9791,5 +9796,4 @@ input::-webkit-inner-spin-button {
 }
 .order-total{
     padding-left: 5px;
-    
 }

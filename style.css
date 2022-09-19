@@ -4385,6 +4385,8 @@ a.text-dark {
 .table tr {
     border-color: #E1E1E1;
     page-break-before:avoid;
+    color: black;
+    font-size: 12px;
 }
 
 .table thead th {
